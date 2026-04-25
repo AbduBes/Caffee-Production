@@ -1,0 +1,90 @@
+<div class="container-fluid page-header mb-5 position-relative overlay-bottom">
+    <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 150px">
+    </div>
+</div>
+<div class="container-fluid py-5 text-light" style="min-height: 100vh;">
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h4 class="text-uppercase m-0" id="formTitle">Login</h4>
+                </div>
+
+                <div class="card-body p-4">
+                    <!-- Login Form -->
+                    <form id="loginForm">
+                        <div class="form-group mb-3">
+                            <label for="loginEmail" class="font-weight-bold">Email address</label>
+                            <input type="email" class="form-control" id="loginEmail" name="email" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="loginPassword" class="font-weight-bold">Password</label>
+                            <input type="password" class="form-control" id="loginPassword"
+                               name="password" placeholder="Enter your password">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block py-2 text-uppercase font-weight-bold">
+                            Login
+                        </button>
+                    </form>
+
+                    <!-- Signup Form (hidden by default) -->
+                    <form id="signupForm" class="d-none">
+                        <div class="form-group mb-3">
+                            <label for="signupName" class="font-weight-bold">Full Name</label>
+                            <input type="text" class="form-control" id="signupName" name="name" placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="signupEmail" class="font-weight-bold">Email address</label>
+                            <input type="email" class="form-control" id="signupEmail" name="email" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="signupPassword" class="font-weight-bold">Password</label>
+                            <input type="password" class="form-control" id="signupPassword"
+                                name="password" placeholder="Create a password">
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block py-2 text-uppercase font-weight-bold">
+                            Sign Up
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card-footer text-center py-3">
+                    <small class="text-muted" id="toggleText">
+                        Don't have an account?
+                        <a href="#" id="toggleForm" class="text-primary">Sign Up</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+        $(document).on('click', '#toggleForm', function (e) {
+            e.preventDefault();
+
+            const isLoginVisible = !$('#loginForm').hasClass('d-none');
+
+            if (isLoginVisible) {
+                $('#loginForm').addClass('d-none');
+                $('#signupForm').removeClass('d-none');
+                $('#formTitle').text('Sign Up');
+                $('#toggleText').html(
+                    'Already have an account? <a href="#" id="toggleForm" class="text-success">Login</a>'
+                );
+            } else {
+                $('#signupForm').addClass('d-none');
+                $('#loginForm').removeClass('d-none');
+                $('#formTitle').text('Login');
+                $('#toggleText').html(
+                    'Don\'t have an account? <a href="#" id="toggleForm" class="text-primary">Sign Up</a>'
+                );
+            }
+        });
+
+        UserService.init();
+    });
+</script>

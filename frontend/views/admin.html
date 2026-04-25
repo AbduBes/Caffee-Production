@@ -1,0 +1,144 @@
+<!-- Page Header Start -->
+<script>
+    $(document).ready(function () {
+        AdminService.init();
+    });
+</script>
+
+<div class="container-fluid page-header mb-5 position-relative overlay-bottom">
+    <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
+        <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Admin</h1>
+        <div class="d-inline-flex mb-lg-5">
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container">
+
+    <!-- PRODUCTS MANAGEMENT -->
+    <div class="mb-5">
+        <h2 class="text-primary mb-4">Products</h2>
+
+        <form id="product-form" class="row g-3 mb-4">
+            <div class="col-md-4">
+                <input type="text" class="form-control p-3" name="name" placeholder="Ime Artikla" required>
+            </div>
+
+            <div class="col-md-3">
+                <input type="number" step="0.01" class="form-control p-3" name="price" placeholder="Prodajna Cena" required>
+            </div>
+
+            <div class="col-md-3">
+                <input type="number" step="0.01" class="form-control p-3" name="entry_price" placeholder="Ulazna Cena"
+                    required>
+            </div>
+
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100 py-3" type="submit">
+                    Add Product
+                </button>
+            </div>
+        </form>
+
+
+        <table class="table table-bordered table-hover text-center">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <th>Ime</th>
+                    <th>Ulazna Cena</th>
+                    <th>Prodajna Cena</th>
+                    <th>Izbrisi</th>
+
+                </tr>
+            </thead>
+            <tbody id="products-table"></tbody>
+        </table>
+    </div>
+
+    <!-- SHIFTS -->
+    <div class="mb-5">
+        <h2 class="text-primary mb-4">Shifts</h2>
+        <!-- Add Shift -->
+        <form id="shift-form" class="row g-3 mb-4">
+            <div class="col-md-3">
+                <select class="form-select p-3" name="user_id" id="employee-select" required>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input type="date" class="form-control p-3" name="date" required>
+            </div>
+            <div class="col-md-3">
+                <input type="number" min="1" max="2" class="form-control p-3" name="smena" placeholder="Smena" required>
+
+            </div>
+            <div class="col-md-2">
+                <select class="form-select p-3" name="venue_id" id="venue-select">
+                    <option value="1">Jedinica</option>
+                    <option value="2">Dvojka</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100 py-3" type="submit">
+                    Add Shift
+                </button>
+            </div>
+        </form>
+
+        <table class="table table-bordered table-hover text-center">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <th>Radnik</th>
+                    <th>Datum</th>
+                    <th>Smena</th>
+                </tr>
+            </thead>
+            <tbody id="shifts-table"></tbody>
+        </table>
+
+        <h2 class="text-primary mb-4">Učinak Smene:</h2>
+
+        <div class="alert alert-info">
+            <strong>Trenutna Smena:</strong>
+            <span id="latest-shift-info">Loading...</span>
+        </div>
+
+
+
+        <form id="shift-sale-form" class="row g-3 mb-4">
+            <div class="col-md-5">
+                <select class="form-control p-3" id="shift-product-select" name="product_id" required>
+                    <option value="">Izaberi Artikl</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="number" min="1" class="form-control p-3" name="products_sold" placeholder="Quantity sold"
+                    required>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary w-100 py-3" type="submit">Dodaj</button>
+            </div>
+        </form>
+
+        <table class="table table-bordered table-hover text-center">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <th>Artikl</th>
+                    <th>Količina</th>
+                    <th>Ulazna Cena</th>
+                    <th>Cena</th>
+                    <th>Ukupno</th>
+                </tr>
+            </thead>
+            <tbody id="shift-sales-table"></tbody>
+        </table>
+
+        <div class="text-end mt-3">
+            <h4>
+                Čista Zarada:
+                <span class="text-primary" id="shift-total"></span>
+            </h4>
+        </div>
+    </div>
+
+</div>
