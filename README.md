@@ -4,8 +4,6 @@ A web application for running a café's daily operations: recording each shift's
 
 It is built as a **PHP REST API** (FlightPHP, MySQL, JWT authentication) with a **single-page jQuery frontend**. The interface is in Serbian/Bosnian, and amounts are shown in RSD.
 
-**Live demo:** https://izvestaji.infinityfreeapp.com (requires an account)
-
 ## Features
 
 - **Role-based access:** *admins* manage products, shifts and employees and see all reports. *Employees* can only see their own data.
@@ -81,7 +79,7 @@ Requirements: PHP 8.2+ with the `pdo_mysql` extension, and MySQL or MariaDB. XAM
 
 **Backend:** PHP 8.2, FlightPHP, PDO/MySQL, firebase/php-jwt, swagger-php
 **Frontend:** HTML, CSS/SCSS, Bootstrap, jQuery, jQuery SPApp, DataTables, jQuery Validate, Toastr
-**Hosting:** Apache on InfinityFree
+**Hosting:** Apache (previously deployed on InfinityFree)
 
 ## License
 
