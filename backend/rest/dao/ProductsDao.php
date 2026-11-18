@@ -17,10 +17,10 @@ class ProductsDao extends BaseDao{
             p.id,
             p.name,
             p.price,
-            COALESCE(SUM(sp.productsSold), 0) AS totalSold,
+            COALESCE(SUM(sp.products_sold), 0) AS totalSold,
             COALESCE(SUM(sp.total), 0) AS totalRevenue
         FROM products p
-        LEFT JOIN shiftProducts sp ON p.id = sp.productId
+        LEFT JOIN shiftproducts sp ON p.id = sp.product_id
         GROUP BY p.id, p.name, p.price
     ";
 

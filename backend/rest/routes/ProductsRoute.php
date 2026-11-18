@@ -40,7 +40,7 @@ Flight::route("GET /products", function () {
  *     )
  * )
  */
-Flight::route("GET /products/@id", function ($id) {
+Flight::route("GET /products/@id:[0-9]+", function ($id) {
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $product = Flight::product()->getById($id);
     if ($product) {

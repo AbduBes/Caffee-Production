@@ -88,11 +88,10 @@ Flight::route("POST /shift-products", function () {
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             required={"shiftId", "productId", "productsSold", "total"},
- *             @OA\Property(property="shiftId", type="integer", example=1),
- *             @OA\Property(property="productId", type="integer", example=5),
- *             @OA\Property(property="productsSold", type="integer", example=10),
- *             @OA\Property(property="total", type="number", format="float", example=45.00)
+ *             required={"shift_id", "product_id", "products_sold"},
+ *             @OA\Property(property="shift_id", type="integer", example=1),
+ *             @OA\Property(property="product_id", type="integer", example=5),
+ *             @OA\Property(property="products_sold", type="integer", example=10)
  *         )
  *     ),
  *     @OA\Response(
@@ -144,11 +143,11 @@ Flight::route("POST /shift-products/latest", function () {
         Flight::halt(400, "No active shift found");
     }
 
-    Flight::sp()->addShiftProd(
-        $latestShift['id'],
-        $data['product_id'],
-        $data['products_sold']
-    );
+    Flight::sp()->add([
+        'shift_id'      => $latestShift['id'],
+        'product_id'    => $data['product_id'],
+        'products_sold' => $data['products_sold'],
+    ]);
 
     Flight::json(["message" => "Product sales added to shift"]);
 });

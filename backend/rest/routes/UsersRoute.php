@@ -41,8 +41,8 @@ Flight::route("GET /users?role=@role", function ($role) {
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::users()->getByRole($role));
 });
-Flight::route("GET /users/@id", function ($id) {
-    //Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
+Flight::route("GET /users/@id:[0-9]+", function ($id) {
+    Flight::auth_middleware()->authorizeSelfOrAdmin($id);
     $user = Flight::users()->getById($id);
     if ($user) {
         Flight::json($user);
@@ -56,6 +56,7 @@ Flight::route("GET /users/@id", function ($id) {
 
 
 Flight::route('GET /users/@user_id/shifts', function ($user_id) {
+  Flight::auth_middleware()->authorizeSelfOrAdmin($user_id);
   $user_id = (int) $user_id;
   Flight::json(
     Flight::users()->get_employee_shifts($user_id)
@@ -83,6 +84,7 @@ Flight::route('GET /users/@user_id/shifts', function ($user_id) {
  * )
  */
 Flight::route("POST /users", function () {
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data;
     $user = Flight::users()->add($data);
     Flight::json($user, 201);
@@ -117,9 +119,11 @@ Flight::route("POST /users", function () {
 
 
 Flight::route("PUT /users/@id", function ($id) {
-    Flight::auth_middleware()->authorizeRole(Roles::USER);
+    // Users may edit their own profile; only admins may edit others or change roles.
+    Flight::auth_middleware()->authorizeSelfOrAdmin($id);
+    $isAdmin = Flight::get('user')->role === Roles::ADMIN;
     $data = Flight::request()->data;
-    $user = Flight::users()->update($data, $id);
+    $user = Flight::users()->update($data, $id, "id", $isAdmin);
     Flight::json($user);
 });
 

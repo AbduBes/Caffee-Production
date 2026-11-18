@@ -29,8 +29,10 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 
-ini_set('display_errors', 0);
-ini_set('display_startup_errors', 0);
+$debug = Config::DEBUG();
+ini_set('display_errors', $debug ? 1 : 0);
+ini_set('display_startup_errors', $debug ? 1 : 0);
+error_reporting(E_ALL ^ (E_NOTICE | E_DEPRECATED));
 
 Flight::map('json', function ($data, $code = 200) {
     // 1. Force wipe the output buffer of any hidden spaces or warnings
@@ -50,6 +52,12 @@ Flight::map('json', function ($data, $code = 200) {
 });
 
 
+
+// Log unexpected errors server-side; only show details in debug mode.
+Flight::map('error', function (Throwable $e) use ($debug) {
+    error_log((string) $e);
+    Flight::json(['error' => $debug ? $e->getMessage() : 'Internal server error'], 500);
+});
 
 Flight::register('users', "UsersService");
 Flight::register('product', "ProductsService");

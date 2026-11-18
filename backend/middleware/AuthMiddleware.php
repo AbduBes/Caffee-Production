@@ -35,6 +35,13 @@ class AuthMiddleware {
            Flight::halt(403, 'Access denied: insufficient privileges');
        }
    }
+   /** Allow admins, or the user whose own record is being accessed. */
+   public function authorizeSelfOrAdmin($userId) {
+       $user = Flight::get('user');
+       if ($user->role !== Roles::ADMIN && (int) $user->id !== (int) $userId) {
+           Flight::halt(403, 'Access denied: insufficient privileges');
+       }
+   }
    public function authorizeRoles($roles) {
        $user = Flight::get('user');
        if (!in_array($user->role, $roles)) {

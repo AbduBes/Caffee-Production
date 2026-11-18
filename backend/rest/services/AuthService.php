@@ -30,8 +30,14 @@ class AuthService extends BaseService {
        }
 
 
-       $entity['password'] = password_hash($entity['password'], PASSWORD_BCRYPT);
-
+       // Only accept known fields. New accounts are always regular employees;
+       // admins are promoted through the admin-only user endpoints.
+       $entity = [
+           'name'     => trim($entity['name'] ?? ''),
+           'email'    => trim($entity['email']),
+           'password' => password_hash($entity['password'], PASSWORD_BCRYPT),
+           'role'     => Roles::USER,
+       ];
 
        $entity = parent::add($entity);
 

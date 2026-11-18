@@ -19,14 +19,6 @@ class ShiftProductsService extends BaseService {
         return $this->dao->add($entity);
     }
 
-    public function getProductByDate($date, $productId){
-        return $this->dao->getProductByDate($date, $productId);
-    }
-
-    public function getShiftProd($shiftId, $product_id, $productsSold){
-        return $this->dao->getShiftProd($shiftId, $product_id, $productsSold);
-    }
-
     public function getShiftSales($shiftId){
         return $this->dao->getShiftSales($shiftId);
     }

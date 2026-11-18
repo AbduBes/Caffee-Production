@@ -89,7 +89,7 @@ class ShiftProductsDao extends BaseDao {
 
     public function getByShiftId($shiftId) {
         $stmt = $this->connection->prepare(
-            "SELECT sp.*, p.name, p.price FROM shiftProducts sp
+            "SELECT sp.*, p.name, p.price FROM shiftproducts sp
              JOIN products p ON sp.product_id = p.id
              WHERE sp.shift_id = :shiftId"
         );

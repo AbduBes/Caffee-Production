@@ -25,4 +25,8 @@ class ShiftsService extends BaseService {
     public function getLatestShift() {
         return $this->dao->getLatestShift();
     }
+
+    public function getShiftSummary($shiftId) {
+        return $this->dao->getShiftSummary($shiftId);
+    }
 }

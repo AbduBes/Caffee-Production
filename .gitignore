@@ -1,0 +1,14 @@
+# Local configuration with real credentials
+backend/config.local.php
+.env
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+*.log
+
+# Composer dependencies (run: cd backend && php ../composer.phar install)
+backend/vendor/

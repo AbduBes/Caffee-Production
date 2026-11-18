@@ -40,10 +40,10 @@ ORDER BY s.date DESC;";
             s.start_time,
             s.end_time,
             u.name AS employee,
-            SUM(sp.productsSold) AS total_items,
+            SUM(sp.products_sold) AS total_items,
             SUM(sp.total) AS total_revenue
         FROM shifts s
-        LEFT JOIN shiftProducts sp ON s.id = sp.shiftId
+        LEFT JOIN shiftproducts sp ON s.id = sp.shift_id
         LEFT JOIN users u ON s.user_id = u.id
         WHERE s.id = :shift_id
         GROUP BY s.id
